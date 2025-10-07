@@ -61,3 +61,6 @@ Thumbs.db
 # Logs
 *.log
 logs/
+
+# Chat session logs (keep private)
+chat_session_logs/
