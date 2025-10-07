@@ -1,0 +1,25 @@
+{
+  "session_id": "brief55",
+  "session_start": "2025-10-07T20:00:00.000000",
+  "session_end": "2025-10-07T20:01:30.000000",
+  "log_version": "1.0",
+  "conversations": [
+    {
+      "timestamp": "2025-10-07T20:00:15.000000",
+      "user_input": "Quick test",
+      "ai_response": "Hello! How can I help you today?",
+      "response_time_seconds": 0.5,
+      "exchange_number": 1
+    },
+    {
+      "timestamp": "2025-10-07T20:01:00.000000",
+      "user_input": "Just testing the logging",
+      "ai_response": "Perfect! This brief conversation will be logged with full metadata including our session ID, timestamps, and response times.",
+      "response_time_seconds": 0.7,
+      "exchange_number": 2
+    }
+  ],
+  "last_updated": "2025-10-07T20:01:30.000000",
+  "total_exchanges": 2,
+  "session_duration_minutes": 1.5
+}

@@ -1,0 +1,46 @@
+{
+  "session_id": "web101",
+  "session_start": "2025-10-07T18:15:00.000000",
+  "session_end": "2025-10-07T18:22:15.000000",
+  "log_version": "1.0",
+  "conversations": [
+    {
+      "timestamp": "2025-10-07T18:15:20.000000",
+      "user_input": "I'm testing the web interface",
+      "ai_response": "Great! The web interface is working perfectly. You can see this conversation is being automatically logged with timestamps and response times.",
+      "response_time_seconds": 0.9,
+      "exchange_number": 1
+    },
+    {
+      "timestamp": "2025-10-07T18:16:45.000000",
+      "user_input": "How does the logging work in the web app?",
+      "ai_response": "The web application uses the same ConversationLogger class as the CLI version. Each message exchange is automatically saved to a JSON file with session tracking, timestamps, and response time metrics.",
+      "response_time_seconds": 1.1,
+      "exchange_number": 2
+    },
+    {
+      "timestamp": "2025-10-07T18:18:30.000000",
+      "user_input": "Can I see the conversation history?",
+      "ai_response": "Yes! You can use the view_conversations.py script to see all your chat history. It supports various options like --recent for the latest conversation, --stats for analytics, and --search to find specific topics.",
+      "response_time_seconds": 1.0,
+      "exchange_number": 3
+    },
+    {
+      "timestamp": "2025-10-07T18:20:10.000000",
+      "user_input": "What about privacy?",
+      "ai_response": "Privacy is built-in! All conversation logs are stored locally and excluded from git commits via .gitignore. Your conversations remain private on your machine while still providing full logging functionality.",
+      "response_time_seconds": 0.8,
+      "exchange_number": 4
+    },
+    {
+      "timestamp": "2025-10-07T18:21:45.000000",
+      "user_input": "Excellent! The system works great.",
+      "ai_response": "Thank you! The combination of automatic logging, privacy protection, and comprehensive analytics makes this a robust chat system for both development and production use.",
+      "response_time_seconds": 0.7,
+      "exchange_number": 5
+    }
+  ],
+  "last_updated": "2025-10-07T18:22:15.000000",
+  "total_exchanges": 5,
+  "session_duration_minutes": 7.25
+}

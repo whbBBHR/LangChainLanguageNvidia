@@ -1,0 +1,39 @@
+{
+  "session_id": "demo456",
+  "session_start": "2025-10-07T14:30:00.000000",
+  "session_end": "2025-10-07T14:35:45.000000",
+  "log_version": "1.0",
+  "conversations": [
+    {
+      "timestamp": "2025-10-07T14:30:15.000000",
+      "user_input": "Can you help me with Python programming?",
+      "ai_response": "Absolutely! I'd be happy to help you with Python programming. What specific topic or problem would you like to work on?",
+      "response_time_seconds": 0.9,
+      "exchange_number": 1
+    },
+    {
+      "timestamp": "2025-10-07T14:31:20.000000",
+      "user_input": "How do I create a class in Python?",
+      "ai_response": "To create a class in Python, you use the 'class' keyword followed by the class name. Here's a basic example:\n\nclass MyClass:\n    def __init__(self, name):\n        self.name = name\n    \n    def greet(self):\n        return f'Hello, {self.name}!'",
+      "response_time_seconds": 1.2,
+      "exchange_number": 2
+    },
+    {
+      "timestamp": "2025-10-07T14:32:45.000000",
+      "user_input": "What about inheritance?",
+      "ai_response": "Inheritance allows you to create a new class based on an existing class. The new class inherits attributes and methods from the parent class:\n\nclass Animal:\n    def __init__(self, name):\n        self.name = name\n    \n    def speak(self):\n        pass\n\nclass Dog(Animal):\n    def speak(self):\n        return f'{self.name} says Woof!'",
+      "response_time_seconds": 1.5,
+      "exchange_number": 3
+    },
+    {
+      "timestamp": "2025-10-07T14:35:30.000000",
+      "user_input": "Perfect, thanks for the examples!",
+      "ai_response": "You're welcome! Python classes and inheritance are fundamental concepts. Feel free to ask if you have more questions about object-oriented programming!",
+      "response_time_seconds": 0.7,
+      "exchange_number": 4
+    }
+  ],
+  "last_updated": "2025-10-07T14:35:45.000000",
+  "total_exchanges": 4,
+  "session_duration_minutes": 5.75
+}
