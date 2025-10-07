@@ -1,5 +1,11 @@
 import os
+import sys
+import time
 from dotenv import load_dotenv
+
+# Add parent directory to path for imports
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from conversation_logger import ConversationLogger
 
 # Load environment variables from .env file
 load_dotenv()
@@ -38,8 +44,12 @@ accurate_chain = prompt | chat_llm | StrOutputParser()
 
 # Interactive user input loop with accuracy focus
 def accurate_chat():
+    # Initialize conversation logger
+    logger = ConversationLogger()
+    
     print("🎯 Welcome to the Accurate AI Chat! 🎯")
     print("Ask me anything - I'll prioritize giving you correct answers!")
+    print(f"📝 Session ID: {logger.session_id}")
     print("Type 'quit' or 'exit' to end the conversation.\n")
     
     while True:
@@ -50,6 +60,9 @@ def accurate_chat():
             # Check if user wants to quit
             if user_question.lower() in ['quit', 'exit', 'bye']:
                 print("🎯 Goodbye! Thanks for the accurate conversation! 🎯")
+                logger.end_session()
+                summary = logger.get_session_summary()
+                print(f"📊 Session Summary: {summary['exchanges']} exchanges in {summary['duration']:.1f} minutes")
                 break
             
             # Skip empty inputs
@@ -58,13 +71,22 @@ def accurate_chat():
                 continue
             
             print("AI: ", end="", flush=True)
-            # Get AI response with accuracy focus
+            # Get AI response with accuracy focus and time it
+            start_time = time.time()
             response = accurate_chain.invoke({"input": user_question})
+            response_time = time.time() - start_time
+            
             print(response)
             print()  # Add blank line for readability
             
+            # Log the conversation
+            logger.log_conversation(user_question, response, response_time)
+            
         except KeyboardInterrupt:
             print("\n\n🎯 Goodbye! Thanks for the accurate conversation! 🎯")
+            logger.end_session()
+            summary = logger.get_session_summary()
+            print(f"📊 Session Summary: {summary['exchanges']} exchanges in {summary['duration']:.1f} minutes")
             break
         except Exception as e:
             print(f"Sorry, an error occurred: {e}")
