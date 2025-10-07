@@ -1,0 +1,8 @@
+
+📊 Conversation Statistics:
+==============================
+Total Sessions: 3
+Total Exchanges: 11
+Total Duration: 0.0 minutes
+Average Exchanges per Session: 3.7
+Average Session Duration: 0.0 minutes
