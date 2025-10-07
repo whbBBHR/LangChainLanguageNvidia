@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accurate AI Chat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>🎯 Accurate AI Assistant</h2>
+        </div>
+        <div class="chat-box" id="chat-box">
+            <div class="message bot-message">
+                <p>Hello! Ask me anything. I'll prioritize accuracy.</p>
+            </div>
+        </div>
+        <form class="chat-input-form" id="chat-form">
+            <input type="text" id="user-input" placeholder="Type your question..." autocomplete="off">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatForm = document.getElementById('chat-form');
+            const userInput = document.getElementById('user-input');
+            const chatBox = document.getElementById('chat-box');
+
+            chatForm.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Prevent page from reloading
+                const userQuestion = userInput.value.trim();
+                if (!userQuestion) return;
+
+                // 1. Display the user's message immediately
+                appendMessage('user', userQuestion);
+                userInput.value = '';
+
+                // 2. Display a temporary "thinking..." message from the bot
+                const thinkingMessage = appendMessage('bot', 'Thinking...');
+
+                try {
+                    // 3. Send the question to your Flask backend
+                    const response = await fetch('/ask', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ question: userQuestion })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Server error: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    
+                    // 4. Replace the "thinking..." message with the actual answer
+                    thinkingMessage.querySelector('p').textContent = data.answer;
+                } catch (error) {
+                    console.error('Error fetching response:', error);
+                    thinkingMessage.querySelector('p').textContent = 'Sorry, an error occurred. Please try again.';
+                }
+            });
+
+            function appendMessage(sender, text) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message', `${sender}-message`);
+                
+                const p = document.createElement('p');
+                p.textContent = text;
+                messageDiv.appendChild(p);
+
+                chatBox.appendChild(messageDiv);
+                // Auto-scroll to the bottom to show the latest message
+                chatBox.scrollTop = chatBox.scrollHeight;
+                return messageDiv; // Return the message element to update it later
+            }
+        });
+    </script>
+</body>
+</html>
