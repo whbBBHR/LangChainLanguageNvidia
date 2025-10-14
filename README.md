@@ -75,8 +75,18 @@ NVIDIA_API_KEY=nvapi-your-actual-key-here
 
 ## 💬 **Usage**
 
+> **⚠️ Important:** Always activate the virtual environment before running any scripts!
+> ```bash
+> source .venv/bin/activate  # macOS/Linux
+> # .venv\Scripts\activate   # Windows
+> ```
+
 ### **CLI Chat Interface**
 ```bash
+# 1. Activate virtual environment (REQUIRED)
+source .venv/bin/activate
+
+# 2. Run the CLI chat
 python LLM/accurate_chat.py
 ```
 - Interactive terminal chat with automatic logging
@@ -85,6 +95,10 @@ python LLM/accurate_chat.py
 
 ### **Web Chat Interface**  
 ```bash
+# 1. Activate virtual environment (REQUIRED)
+source .venv/bin/activate
+
+# 2. Start the web server
 cd web_app
 python app.py
 ```
@@ -94,6 +108,10 @@ python app.py
 
 ### **View Conversation Logs**
 ```bash
+# 1. Activate virtual environment (REQUIRED)
+source .venv/bin/activate
+
+# 2. View conversation logs
 python view_conversations.py --recent    # Latest conversation
 python view_conversations.py --stats     # Overall statistics  
 python view_conversations.py --help      # All available options
@@ -294,6 +312,59 @@ print(f"Total sessions: {stats['sessions']}")
 - Anonymous examples in `sample_logs/` for demonstration
 - No personal information in committed sample data
 - Statistical summaries without sensitive content
+
+---
+
+## 🔧 **Troubleshooting**
+
+### **Common Issues**
+
+#### **ModuleNotFoundError: No module named 'dotenv' (or other packages)**
+```bash
+# Problem: Virtual environment not activated
+# Solution: Always activate before running scripts
+source .venv/bin/activate  # macOS/Linux
+# .venv\Scripts\activate   # Windows
+
+# Then run your script
+python LLM/accurate_chat.py
+```
+
+#### **NVIDIA_API_KEY not found**
+```bash
+# Problem: .env file not loaded or API key not set
+# Solution: Check your .env file exists and contains:
+NVIDIA_API_KEY=nvapi-your-actual-key-here
+
+# Verify it's in the project root directory
+ls -la .env
+```
+
+#### **Permission denied or file not found**
+```bash
+# Problem: Running from wrong directory
+# Solution: Always run from project root
+cd "/path/to/Nividia_Building RAG Agents with LLMs"
+source .venv/bin/activate
+python LLM/accurate_chat.py
+```
+
+#### **Web interface won't start**
+```bash
+# Problem: Port already in use or packages missing
+# Solution: 
+1. Activate virtual environment first
+2. Check if port 5001 is free: lsof -i :5001
+3. Kill existing process if needed: kill [PID]
+```
+
+#### **Conversation logs not saving**
+```bash
+# Problem: Permission issues or directory doesn't exist
+# Solution: Check conversation_logs directory exists
+mkdir -p conversation_logs
+chmod 755 conversation_logs
+```
 
 ---
 
