@@ -130,26 +130,6 @@ def accurate_chat():
             }):
                 print(chunk, end="", flush=True)
                 response_chunks.append(chunk)
-                print("🎯 Goodbye! Thanks for the accurate conversation! 🎯")
-                logger.end_session()
-                summary = logger.get_session_summary()
-                print(f"📊 Session Summary: {summary['exchanges']} exchanges in {summary['duration']:.1f} minutes")
-                break
-            
-            # Skip empty inputs
-            if not user_question:
-                print("Please enter a question or type 'quit' to exit.")
-                continue
-            
-            print("AI: ", end="", flush=True)
-            # Get AI response with accuracy focus and time it - streaming for real-time output
-            start_time = time.time()
-            response_chunks = []
-            
-            # Stream the response in real-time
-            for chunk in accurate_chain.stream({"input": user_question}):
-                print(chunk, end="", flush=True)
-                response_chunks.append(chunk)
             
             response_time = time.time() - start_time
             response = "".join(response_chunks)
