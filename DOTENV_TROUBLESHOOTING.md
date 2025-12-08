@@ -15,7 +15,7 @@ load_dotenv(env_path)
 ### **2. Working Directory vs Script Location**
 ```bash
 # When you run from project root
-cd "/Users/wayneberry/Documents/Nividia_Building RAG Agents with LLMs"
+cd "/path/to/Nividia_Building RAG Agents with LLMs"
 python LLM/accurate_chat.py  # ✅ Works - .env found in cwd
 
 # When you run from LLM directory  
@@ -58,14 +58,14 @@ load_dotenv(env_path)
 
 ### **1. Test CLI Application**
 ```bash
-cd "/Users/wayneberry/Documents/Nividia_Building RAG Agents with LLMs"
+cd "/path/to/Nividia_Building RAG Agents with LLMs"
 source .venv/bin/activate
 python LLM/accurate_chat.py
 ```
 
 ### **2. Test Web Application**  
 ```bash
-cd "/Users/wayneberry/Documents/Nividia_Building RAG Agents with LLMs/web_app"
+cd "/path/to/Nividia_Building RAG Agents with LLMs/web_app"
 source .venv/bin/activate
 python app.py
 ```
