@@ -42,9 +42,10 @@ search_tool = DuckDuckGoSearchResults(api_wrapper=search_wrapper)
 def needs_web_search(question: str) -> bool:
     """Determine if a question requires current/recent information"""
     current_indicators = [
-        'current', 'latest', 'recent', 'today', 'now', 'this year',
-        '2024', '2025', 'news', 'happening', 'what is', 'who is',
-        'price', 'stock', 'weather', 'score'
+        'current', 'latest', 'recent', 'today', 'now', 'this year', 'last year',
+        '2023', '2024', '2025', 'news', 'happening', 'what is', 'who is', 'when did',
+        'price', 'stock', 'weather', 'score', 'winner', 'won', 'released', 'release',
+        'new', 'update', 'version', 'announce', 'launch', 'president', 'election'
     ]
     question_lower = question.lower()
     return any(indicator in question_lower for indicator in current_indicators)
@@ -61,9 +62,18 @@ def search_web(query: str) -> str:
 
 # RAG-enhanced prompt
 rag_prompt = ChatPromptTemplate.from_messages([
-    ("system", """You are a helpful and accurate AI assistant with access to current information.
+    ("system", """You are a helpful and accurate AI assistant with access to current information up to December 2025.
 
-When provided with web search results, use them to answer questions about recent events, current information, or topics after 2023.
+You have two sources of knowledge:
+1. Your base training data (cutoff: mid-2023)
+2. Real-time web search results for current information (2023-2025)
+
+When answering questions:
+- If web search results are provided, prioritize them for questions about recent events or current information
+- Use the search results to provide accurate, up-to-date answers about events from 2023 onwards
+- If no web search results are available, answer normally WITHOUT mentioning any knowledge cutoff dates
+- Do NOT mention "my knowledge cutoff is 2023" or similar phrases unless the user specifically asks about your training data
+- Present information confidently based on what you know
 
 For factual questions (like counting letters, math, dates, etc.), provide the correct answer first.
 
@@ -72,7 +82,7 @@ For counting letters in words:
 2. Count carefully 
 3. Give the exact correct number
 
-Always prioritize accuracy. If you have current information from web searches, use it. If not, acknowledge your knowledge cutoff (mid-2023) and work with what you know.
+Always prioritize accuracy. When you have current web search results, use them confidently.
 
 Current date: {current_date}"""),
     ("user", "{input}\n\nWeb Search Results (if available):\n{context}")
@@ -86,10 +96,10 @@ def accurate_chat():
     logger = ConversationLogger()
     
     print("🎯 Welcome to the RAG-Enhanced Accurate AI Chat! 🎯")
-    print("Ask me anything - I can search the web for current information!")
+    print("Ask me anything - I have knowledge up to December 2025!")
     print(f"📝 Session ID: {logger.session_id}")
     print(f"📅 Current date: {datetime.now().strftime('%B %d, %Y')}")
-    print("🔍 I'll automatically search the web when you ask about recent events!")
+    print("🔍 I'll automatically search the web for questions about recent events (2023-2025)!")
     print("Type 'quit' or 'exit' to end the conversation.\n")
     
     while True:
@@ -115,7 +125,7 @@ def accurate_chat():
             if needs_web_search(user_question):
                 context = search_web(user_question)
             else:
-                context = "No web search performed - using base knowledge."
+                context = "No additional web search needed for this query."
             
             print("AI: ", end="", flush=True)
             # Get AI response with RAG and time it - streaming for real-time output
