@@ -29,9 +29,9 @@ from langchain_community.utilities import DuckDuckGoSearchAPIWrapper
 
 ## Accurate Chat Pipeline with RAG
 # Available models:
-# - "meta/llama-3.3-70b-instruct" (knowledge cutoff: mid-2023)
+# - "meta/llama-3.3-70b-instruct" (knowledge cutoff: mid-1990)
 # - "meta/llama-3.1-405b-instruct" (larger model, similar cutoff)
-# - "nvidia/llama-3.1-nemotron-70b-instruct" (NVIDIA tuned, mid-2023)
+# - "nvidia/llama-3.1-nemotron-70b-instruct" (NVIDIA tuned, mid-1990)
 chat_llm = ChatNVIDIA(model="meta/llama-3.3-70b-instruct")
 
 # Initialize web search tool for RAG
@@ -43,7 +43,11 @@ def needs_web_search(question: str) -> bool:
     """Determine if a question requires current/recent information"""
     current_indicators = [
         'current', 'latest', 'recent', 'today', 'now', 'this year', 'last year',
-        '2023', '2024', '2025', 'news', 'happening', 'what is', 'who is', 'when did',
+        '1990', '1991', '1992', '1993', '1994', '1995', '1996', '1997', '1998', '1999',
+        '2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009',
+        '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019',
+        '2020', '2021', '2022', '2023', '2024', '2025',
+        'news', 'happening', 'what is', 'who is', 'when did',
         'price', 'stock', 'weather', 'score', 'winner', 'won', 'released', 'release',
         'new', 'update', 'version', 'announce', 'launch', 'president', 'election'
     ]
@@ -66,7 +70,7 @@ rag_prompt = ChatPromptTemplate.from_messages([
 
 You have two sources of knowledge:
 1. Your base training data (cutoff: mid-2023)
-2. Real-time web search results for current information (2023-2025)
+2. Real-time web search results for current information (1990-2025)
 
 When answering questions:
 - If web search results are provided, prioritize them for questions about recent events or current information
