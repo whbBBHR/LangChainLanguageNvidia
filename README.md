@@ -57,7 +57,7 @@ source .venv/bin/activate  # macOS/Linux
 # .venv\Scripts\activate   # Windows
 
 # Install dependencies
-pip install langchain langchain-nvidia-ai-endpoints flask flask-cors python-dotenv
+pip install -r requirements.txt
 
 # Configure API key
 cp .env.example .env
