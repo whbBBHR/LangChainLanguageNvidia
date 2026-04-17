@@ -1,7 +1,10 @@
 # Core LangChain and NVIDIA AI
+# Note: langchain-nvidia-ai-endpoints>=1.2.0 imports ModelProfile from langchain_core,
+# which was added in langchain-core>=1.2.5. Pinning langchain-core>=1.2.5 ensures
+# all packages are installed with compatible versions.
 langchain>=0.3.0
-langchain-nvidia-ai-endpoints>=0.3.0
-langchain-core>=0.3.0
+langchain-nvidia-ai-endpoints>=1.2.0
+langchain-core>=1.2.5
 langchain-community>=0.3.0
 
 # Web framework for web interface
