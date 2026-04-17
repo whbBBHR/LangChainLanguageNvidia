@@ -33,6 +33,11 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+> **Note for Anaconda/Conda users**: If you have an existing conda environment with older LangChain packages (e.g., `langchain-core` 0.3.x), run the following to ensure compatible versions are installed:
+> ```bash
+> pip install --upgrade -r requirements.txt
+> ```
+
 4. Set up environment variables:
 ```bash
 cp .env.example .env
@@ -63,9 +68,10 @@ python nvidia_rag_llm.py
 
 ## Dependencies
 
-- `langchain`: LangChain framework for building AI applications
-- `langchain-nvidia-ai-endpoints`: NVIDIA AI endpoints integration
-- `python-dotenv`: Environment variable management
+- `langchain-core>=1.2.5`: Core LangChain primitives (required for `ModelProfile` support)
+- `langchain>=1.0.0`: LangChain framework for building AI applications
+- `langchain-nvidia-ai-endpoints>=1.0.0`: NVIDIA AI endpoints integration
+- `python-dotenv>=1.0.0`: Environment variable management
 
 ## License
 
