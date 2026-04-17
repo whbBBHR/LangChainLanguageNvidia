@@ -1,7 +1,10 @@
 # Core LangChain and NVIDIA AI
-langchain>=0.3.0
-langchain-nvidia-ai-endpoints>=0.3.0
-langchain-core>=0.3.0
+# langchain-core>=1.0.0 is required because ModelProfile was introduced in 1.0.0.
+# Older langchain-core (0.3.x) does not export ModelProfile from
+# langchain_core.language_models, causing an ImportError at runtime.
+langchain>=1.0.0
+langchain-nvidia-ai-endpoints>=1.0.0
+langchain-core>=1.0.0
 langchain-community>=0.3.0
 
 # Web framework for web interface
