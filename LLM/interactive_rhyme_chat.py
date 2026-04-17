@@ -1,11 +1,12 @@
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()
+# Load environment variables from project root .env file
+env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.env')
+load_dotenv(env_path)
 
 # Get API key from environment variable
-nvidia_api_key = os.getenv("NVIDIA_API_KEY")
+nvidia_api_key = os.getenv("NVIDIA_API_KEY", "").strip().strip('"').strip("'")
 if not nvidia_api_key:
     raise ValueError("Please set your NVIDIA API key in the .env file")
 
@@ -57,7 +58,13 @@ def chat_with_ai():
             print("\n\n🎵 Goodbye! Thanks for chatting in rhyme! 🎵")
             break
         except Exception as e:
-            print(f"Sorry, an error occurred: {e}")
+            error_text = str(e)
+            if "403" in error_text or "Authorization failed" in error_text:
+                print("Sorry, NVIDIA API authorization failed (403).")
+                print("Check that NVIDIA_API_KEY in your project .env is valid, active, and not wrapped in extra quotes.")
+                print("You may need to regenerate the key at https://build.nvidia.com/ and restart the terminal.")
+            else:
+                print(f"Sorry, an error occurred: {e}")
             print("Please try again or type 'quit' to exit.\n")
 
 # Start the interactive chat

@@ -1,11 +1,12 @@
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()
+# Load environment variables from project root .env file
+env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.env')
+load_dotenv(env_path)
 
 # Get API key from environment variable
-nvidia_api_key = os.getenv("NVIDIA_API_KEY")
+nvidia_api_key = os.getenv("NVIDIA_API_KEY", "").strip().strip('"').strip("'")
 if not nvidia_api_key:
     raise ValueError("Please set your NVIDIA API key in the .env file")
 

@@ -15,11 +15,17 @@ env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__
 load_dotenv(env_path)
 
 # Get API key from environment variable
-nvidia_api_key = os.getenv("NVIDIA_API_KEY")
+nvidia_api_key = os.getenv("NVIDIA_API_KEY", "").strip().strip('"').strip("'")
 if not nvidia_api_key:
     raise ValueError("Please set your NVIDIA API key in the .env file")
 
 os.environ["NVIDIA_API_KEY"] = nvidia_api_key
+
+
+def _is_nvidia_auth_error(err: Exception) -> bool:
+    """Detect NVIDIA auth failures without exposing secrets."""
+    error_text = str(err)
+    return "403" in error_text or "Authorization failed" in error_text
 
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_core.output_parsers import StrOutputParser
@@ -101,6 +107,10 @@ def ask_ai():
     
     except Exception as e:
         print(f"Error in ask_ai: {e}")
+        if _is_nvidia_auth_error(e):
+            return jsonify({
+                'error': 'NVIDIA API authorization failed (403). Check NVIDIA_API_KEY in project .env and regenerate the key if needed.'
+            }), 401
         return jsonify({'error': 'An error occurred while processing your request'}), 500
 
 @app.route('/session-info')
@@ -118,4 +128,6 @@ if __name__ == '__main__':
     print("🎯 Starting Accurate AI Chat Web Server...")
     print("📱 Open your browser to: http://localhost:5001")
     print("📝 Conversation logging enabled")
+    print(f"🔐 NVIDIA_API_KEY loaded: {'yes' if bool(nvidia_api_key) else 'no'} (len={len(nvidia_api_key)})")
+    print(f"📄 .env path: {env_path}")
     app.run(debug=True, host='0.0.0.0', port=5001)
