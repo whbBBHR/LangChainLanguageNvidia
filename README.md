@@ -57,7 +57,7 @@ source .venv/bin/activate  # macOS/Linux
 # .venv\Scripts\activate   # Windows
 
 # Install dependencies
-pip install langchain langchain-nvidia-ai-endpoints flask flask-cors python-dotenv
+pip install -r requirements.txt
 
 # Configure API key
 cp .env.example .env
@@ -318,6 +318,13 @@ print(f"Total sessions: {stats['sessions']}")
 ## 🔧 **Troubleshooting**
 
 ### **Common Issues**
+
+#### **ImportError: cannot import name 'ModelProfile' (or similar on import)**
+```bash
+# Problem: langchain-core version is too old to support langchain-nvidia-ai-endpoints>=1.1.0
+# Solution: Upgrade all packages using the pinned requirements file
+pip install -r requirements.txt --upgrade
+```
 
 #### **ModuleNotFoundError: No module named 'dotenv' (or other packages)**
 ```bash
