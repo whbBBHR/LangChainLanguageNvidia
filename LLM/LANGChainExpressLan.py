@@ -19,10 +19,20 @@ if not nvidia_api_key:
 
 os.environ["NVIDIA_API_KEY"] = nvidia_api_key
 
-from langchain_nvidia_ai_endpoints import ChatNVIDIA
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import ChatPromptTemplate
-ChatNVIDIA.get_available_models()
+try:
+    from langchain_nvidia_ai_endpoints import ChatNVIDIA
+    from langchain_core.output_parsers import StrOutputParser
+    from langchain_core.prompts import ChatPromptTemplate
+except ImportError as e:
+    raise ImportError(
+        f"Required package import failed: {e}\n"
+        "Run: pip install -r requirements.txt --upgrade"
+    ) from e
+
+try:
+    ChatNVIDIA.get_available_models()
+except Exception:
+    pass
 
 ## Simple Chat Pipeline
 chat_llm = ChatNVIDIA(model="meta/llama-3.3-70b-instruct")
