@@ -319,6 +319,13 @@ print(f"Total sessions: {stats['sessions']}")
 
 ### **Common Issues**
 
+#### **ImportError: cannot import name 'ModelProfile' (or similar on import)**
+```bash
+# Problem: langchain-core version is too old to support langchain-nvidia-ai-endpoints>=1.1.0
+# Solution: Upgrade all packages using the pinned requirements file
+pip install -r requirements.txt --upgrade
+```
+
 #### **ModuleNotFoundError: No module named 'dotenv' (or other packages)**
 ```bash
 # Problem: Virtual environment not activated
