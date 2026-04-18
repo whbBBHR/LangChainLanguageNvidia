@@ -1,5 +1,5 @@
 # Core LangChain and NVIDIA AI
-langchain>=1.0.0
+langchain>=0.3.0
 langchain-nvidia-ai-endpoints>=1.1.0
 langchain-core>=1.2.5
 langchain-community>=0.3.0
